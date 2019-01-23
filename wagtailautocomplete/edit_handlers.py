@@ -9,11 +9,7 @@ def _can_create(page_type):
     """Returns True if the given model has implemented the autocomplete_create
     method to allow new instances to be creates from a single string value.
     """
-    return callable(getattr(
-        apps.get_model(page_type),
-        'autocomplete_create',
-        None,
-    ))
+    return callable(getattr(apps.get_model(page_type), "autocomplete_create", None))
 
 
 if VERSION < (2, 0):
@@ -21,12 +17,15 @@ if VERSION < (2, 0):
     from wagtail.wagtailadmin.edit_handlers import BaseFieldPanel
 
     class AutocompletePanel:
-        def __init__(self, field_name, page_type='wagtailcore.Page', is_single=True):
+        def __init__(
+            self, field_name, page_type="wagtailcore.Page", is_single=True, filters=None
+        ):
             # is_single defaults to True in order to have easy drop-in
             # compatibility with wagtailadmin.edit_handlers.PageChooserPanel.
             self.field_name = field_name
             self.page_type = page_type
             self.is_single = is_single
+            self.filters = filters or {}
 
         def bind_to_model(self, model):
             can_create = _can_create(self.page_type)
@@ -34,35 +33,56 @@ if VERSION < (2, 0):
                 model=model,
                 field_name=self.field_name,
                 widget=type(
-                    '_Autocomplete',
+                    "_Autocomplete",
                     (Autocomplete,),
-                    dict(page_type=self.page_type, can_create=can_create, is_single=self.is_single),
+                    dict(
+                        page_type=self.page_type,
+                        can_create=can_create,
+                        is_single=self.is_single,
+                        filters=self.filters,
+                    ),
                 ),
             )
-            return type('_AutocompleteFieldPanel', (BaseFieldPanel,), base)
+            return type("_AutocompleteFieldPanel", (BaseFieldPanel,), base)
+
+
 else:
     # Wagtail 2.x
     from wagtail.admin.edit_handlers import FieldPanel
 
     class AutocompletePanel(FieldPanel):
-        def __init__(self, field_name, page_type='wagtailcore.Page', is_single=True, **kwargs):
+        def __init__(
+            self,
+            field_name,
+            page_type="wagtailcore.Page",
+            is_single=True,
+            filters=None,
+            **kwargs
+        ):
             super().__init__(field_name, **kwargs)
             # is_single defaults to True in order to have easy drop-in
             # compatibility with wagtailadmin.edit_handlers.PageChooserPanel.
             self.page_type = page_type
             self.is_single = is_single
+            self.filters = filters or {}
 
         def clone(self):
             return self.__class__(
                 field_name=self.field_name,
                 page_type=self.page_type,
-                is_single=self.is_single
+                is_single=self.is_single,
+                filters=self.filters,
             )
 
         def on_model_bound(self):
             can_create = _can_create(self.page_type)
             self.widget = type(
-                '_Autocomplete',
+                "_Autocomplete",
                 (Autocomplete,),
-                dict(page_type=self.page_type, can_create=can_create, is_single=self.is_single),
+                dict(
+                    page_type=self.page_type,
+                    can_create=can_create,
+                    is_single=self.is_single,
+                    filters=self.filters,
+                ),
             )

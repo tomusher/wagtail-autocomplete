@@ -1,7 +1,7 @@
 $white: #fff;
 $black: #000;
 $gray: #e6e6e6;
-$light-coral: #ff7e77;
+$light-coral: #eee;
 $deep-sky-blue: #9d9fa0;
 
 $input-border-color: $gray;
@@ -17,8 +17,8 @@ $wagtail-border-radius: 6px;
 $search-icon-width: 36px;
 $search-icon-padding: 4px;
 
-@import 'accessibility';
-@import 'layout';
-@import 'selection';
-@import 'suggestions';
-@import 'search';
+@import "accessibility";
+@import "layout";
+@import "selection";
+@import "suggestions";
+@import "search";

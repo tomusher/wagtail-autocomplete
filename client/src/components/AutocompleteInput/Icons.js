@@ -1,12 +1,10 @@
 /* eslint max-len: 0 */
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React from "react";
+import PropTypes from "prop-types";
 
 const IconPropTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string
 };
-
 
 const SearchIcon = ({ className }) => (
   <svg
@@ -22,9 +20,7 @@ const SearchIcon = ({ className }) => (
   </svg>
 );
 
-
 SearchIcon.propTypes = IconPropTypes;
-
 
 const RightArrowIcon = ({ className }) => (
   <svg
@@ -36,9 +32,7 @@ const RightArrowIcon = ({ className }) => (
   </svg>
 );
 
-
 RightArrowIcon.propTypes = IconPropTypes;
-
 
 const RemoveIcon = ({ className }) => (
   <svg
@@ -50,12 +44,6 @@ const RemoveIcon = ({ className }) => (
   </svg>
 );
 
-
 RemoveIcon.propTypes = IconPropTypes;
 
-
-export {
-  SearchIcon,
-  RightArrowIcon,
-  RemoveIcon,
-};
+export { SearchIcon, RightArrowIcon, RemoveIcon };
