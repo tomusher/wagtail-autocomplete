@@ -1,15 +1,12 @@
-$white: #fff;
-$black: #000;
 $gray: #e6e6e6;
-$light-coral: #eee;
 $deep-sky-blue: #9d9fa0;
 
 $input-border-color: $gray;
-$selection-bg: $light-coral;
-$selection-fg: $black;
-$suggestions-bg: $white;
-$suggestions-bg-active: $light-coral;
-$suggestions-fg-active: $black;
+$selection-bg: #eee;
+$selection-fg: black;
+$suggestions-bg: white;
+$suggestions-bg-active: #007d7e;
+$suggestions-fg-active: white;
 $search-icon-color: $deep-sky-blue;
 
 $wagtail-border-radius: 6px;
