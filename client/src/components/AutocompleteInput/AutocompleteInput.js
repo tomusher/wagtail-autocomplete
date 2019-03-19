@@ -148,7 +148,7 @@ class AutocompleteInput extends PureComponent {
   }
 
   handleClick(value) {
-    this.setState({ value });
+    this.setState({ value, input: { value: "" } });
 
     if (typeof this.props.onChange === "function") {
       this.props.onChange({ target: { value, _autocomplete: true } });
